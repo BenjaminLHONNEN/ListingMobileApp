@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Listings.Views.ArticleDetail">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="{Binding Article.Picture}" HeightRequest="200"/>
+            <StackLayout Margin="5" Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding Article.Title}" />
+                    <Label Grid.Column="1"
+                           Text="{Binding Article.Price, Converter={StaticResource DecimalPriceConverter}}" />
+                </Grid>
+                <Label Text="{Binding Article.Content, Converter={StaticResource LengthCutterConverter}}"
+                       Style="{StaticResource small}" />
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout Style="{StaticResource bubbleSmallStackLayout}">
+                        <Label Text="{Binding Article.Category.Name}"
+                               Style="{StaticResource bubbleSmallLabel}" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <Button Text="Contacter le vendeur" Command="{Binding CreateConversation}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Listings"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:models="clr-namespace:Listings.Models;assembly=Listings"
+             x:Class="Listings.MainPage"
+             Title="{Binding Title}">
+
+    <Grid BackgroundColor="#FEFEFE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView  x:Name="ArticleList" 
+                   Grid.Row="1"
+                   IsPullToRefreshEnabled="True"
+                   IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                   RefreshCommand="{Binding ReloadArticlesCommand}"
+                   SeparatorColor="#222222"
+                   BackgroundColor="#FEFEFE"
+                   HasUnevenRows="True"
+                   ItemsSource="{Binding Articles}" 
+                   SelectedItem="{Binding SelectedArticle}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Title}"/>
+                                <Label Grid.Column="1" Text="{Binding Price, Converter={StaticResource DecimalPriceConverter}}"/>
+                            </Grid>
+                            <Label Text="{Binding Content, Converter={StaticResource LengthCutterConverter}}"
+                                   Style="{StaticResource small}"/>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Style="{StaticResource bubbleSmallStackLayout}">
+                                    <Label Text="{Binding Category.Name}"
+                                           Style="{StaticResource bubbleSmallLabel}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="EndAndExpand"
+                     Grid.Row="2">
+            <Button x:Name="ButtonCreateView" CornerRadius="100" Text="+" HeightRequest="50" WidthRequest="50" Margin="5"></Button>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

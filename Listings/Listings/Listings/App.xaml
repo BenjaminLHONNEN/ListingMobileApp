@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Listings.Converters"
+             x:Class="Listings.App">
+    <Application.Resources>
+
+        <converters:LengthCutterConverter x:Key="LengthCutterConverter"></converters:LengthCutterConverter>
+        <converters:DecimalPriceConverter x:Key="DecimalPriceConverter"></converters:DecimalPriceConverter>
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"></converters:InvertBooleanConverter>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="#2c3e50" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        
+        <Style TargetType="Label" x:Key="small">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="#34495e" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style TargetType="Label" x:Key="bubbleSmallLabel">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#34495e" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style TargetType="StackLayout" x:Key="bubbleSmallStackLayout">
+            <Setter Property="BackgroundColor" Value="#34495e" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#34495e" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style x:Key="FlatBlueButton" TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498db" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style x:Key="FlatGreenButton" TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#2ecc71" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style x:Key="FlatOrangeButton" TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#e67e22" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style x:Key="FlatRedButton" TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#e74c3c" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#e74c3c" />
+            <Setter Property="PlaceholderColor" Value="#e74c3c" />
+        </Style>
+
+    </Application.Resources>
+</Application>
