@@ -8,6 +8,14 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Text="{Binding Research}"></Entry>
+            <Button Grid.Column="1" Command="{Binding ResearchCommand}" Text="Chercher"></Button>
+        </Grid>
         <ListView  x:Name="ArticleList" 
                    Grid.Row="1"
                    IsPullToRefreshEnabled="True"
@@ -53,7 +61,7 @@
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="EndAndExpand"
                      Grid.Row="2">
-            <Button x:Name="ButtonCreateView" CornerRadius="100" Text="+" HeightRequest="50" WidthRequest="50" Margin="5"></Button>
+            <Button Command="{Binding CreateArticlesCommand}" CornerRadius="100" Text="+" HeightRequest="50" WidthRequest="50" Margin="5"></Button>
         </StackLayout>
     </Grid>
 </ContentPage>

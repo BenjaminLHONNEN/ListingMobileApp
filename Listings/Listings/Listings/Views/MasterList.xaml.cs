@@ -26,8 +26,9 @@ namespace Listings.Views
 
         class MasterMasterMasterViewModel : INotifyPropertyChanged
         {
+            private bool _islogged;
             public ObservableCollection<MasterMenuItem> MenuItems { get; set; }
-            public bool IsLogged => AuthService.Instance.IsLogged();
+            public bool IsLogged => _islogged;
             public UserConnection UserConnection => AuthService.Instance.UserConnection;
 
             public MasterMasterMasterViewModel()
@@ -35,8 +36,19 @@ namespace Listings.Views
                 MenuItems = new ObservableCollection<MasterMenuItem>(new[]
                 {
                     new MasterMenuItem {Id = 0, Title = "Liste d'articles", TargetType = typeof(ArticlesList)},
-                    new MasterMenuItem {Id = 1, Title = "Créer un article", TargetType = typeof(CreateArticleWindow)},
                 });
+                _islogged = AuthService.Instance.IsLogged();
+                OnPropertyChanged(nameof(IsLogged));
+                if (_islogged)
+                {
+                    MenuItems.Add(
+                        new MasterMenuItem
+                            {Id = 3, Title = "Mes conversations", TargetType = typeof(ConversationList)});
+                    MenuItems.Add(
+                        new MasterMenuItem
+                            {Id = 1, Title = "Créer un article", TargetType = typeof(CreateArticleWindow)});
+                    OnPropertyChanged(nameof(MenuItems));
+                }
             }
 
             #region INotifyPropertyChanged Implementation

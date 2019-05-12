@@ -53,11 +53,11 @@ namespace Listings.Auth
             }
         }
 
-        private bool isLogged;
+        private bool _isLogged;
 
         private AuthService()
         {
-            isLogged = false;
+            _isLogged = false;
             if (Application.Current.Properties.ContainsKey("userToken") &&
                 Application.Current.Properties["userToken"] != null)
             {
@@ -72,6 +72,16 @@ namespace Listings.Auth
                     JsonConvert.DeserializeObject<UserConnection>(Application.Current.Properties["userConnection"]
                         .ToString());
             }
+
+            if (_userConnection != null && _userToken != null)
+            {
+                _isLogged = true;
+            }
+
+            if (_userConnection != null)
+            {
+                Task.Run(async () => { await LogUser(_userConnection); });
+            }
         }
 
         private async Task SaveUser()
@@ -83,7 +93,7 @@ namespace Listings.Auth
 
         public bool IsLogged()
         {
-            return isLogged && DateTime.Now <= _userToken.Exp;
+            return _isLogged && DateTime.Now <= _userToken.Exp;
         }
 
         public async Task<bool> LogUser(UserConnection user)
@@ -93,7 +103,7 @@ namespace Listings.Auth
                 _userToken = await UserService.AuthUserAsync(user);
                 _userConnection = user;
                 await SaveUser();
-                isLogged = true;
+                _isLogged = true;
                 OnPropertyChanged(nameof(IsLogged));
                 return true;
             }

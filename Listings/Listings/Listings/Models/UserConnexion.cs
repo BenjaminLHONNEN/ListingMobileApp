@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -17,13 +16,5 @@ namespace Listings.Models
         {
             return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
         }
-    }
-    public class UserToken
-    {
-        [JsonProperty("token")] public string Token { get; set; }
-
-        [JsonProperty("exp")] public DateTime Exp { get; set; }
-
-        [JsonProperty("username")] public string Username { get; set; }
     }
 }

@@ -11,17 +11,17 @@ using Xamarin.Forms.Xaml;
 namespace Listings.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ArticlesList : ContentPage
+    public partial class ConversationList : ContentPage
     {
-        public ArticlesList()
+        public ConversationList()
         {
             InitializeComponent();
-            BindingContext = new ArticleListViewModel(Navigation);
 
-            ArticleList.ItemTapped += (sender, args) =>
+            BindingContext = new ConversationListViewModel(Navigation);
+            ConversationListItems.ItemTapped += (sender, args) =>
             {
-                Article article = (Article)args.Item;
-                Navigation.PushAsync(new ArticleDetail(article));
+                Conversation conversation = (Conversation) args.Item;
+                Navigation.PushAsync(new ConversationDetail(conversation.Id));
             };
         }
     }

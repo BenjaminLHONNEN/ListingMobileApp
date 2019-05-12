@@ -8,6 +8,7 @@
         <converters:LengthCutterConverter x:Key="LengthCutterConverter"></converters:LengthCutterConverter>
         <converters:DecimalPriceConverter x:Key="DecimalPriceConverter"></converters:DecimalPriceConverter>
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"></converters:InvertBooleanConverter>
+        <converters:IsLoggedConverter x:Key="IsLoggedConverter"></converters:IsLoggedConverter>
 
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="Medium" />

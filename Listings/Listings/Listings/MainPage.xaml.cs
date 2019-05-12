@@ -19,14 +19,14 @@ namespace Listings
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new ArticleListViewModel();
+            BindingContext = new ArticleListViewModel(Navigation);
 
             ArticleList.ItemTapped += (sender, args) =>
             {
                 Article article = (Article) args.Item;
                 Navigation.PushAsync(new ArticleDetail(article));
             };
-            ButtonCreateView.Clicked += (sender, args) => { Navigation.PushAsync(new CreateArticleWindow()); };
+            ButtonCreateView.Clicked += (sender, args) => {  };
         }
     }
 }

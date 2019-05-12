@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Listings.Views.ConversationDetail">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ListView x:Name="ArticleList"
+                      Grid.Row="1"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsBusy}"
+                      RefreshCommand="{Binding RefreshConversationCommand}"
+                      SeparatorColor="#222222"
+                      BackgroundColor="#FEFEFE"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding Conversations}"
+                      SelectedItem="{Binding SelectedConversation}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Body}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

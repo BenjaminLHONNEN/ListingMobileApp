@@ -2,6 +2,7 @@
 using Listings.ApiHelper;
 using Listings.Auth;
 using Listings.Models;
+using Listings.Views;
 using Xamarin.Forms;
 
 namespace Listings.ViewModels
@@ -22,7 +23,7 @@ namespace Listings.ViewModels
 
         public ICommand CreateConversation { get; set; }
 
-        public ArticleDetailViewModel(Article article)
+        public ArticleDetailViewModel(Article article, INavigation navigation)
         {
             Article = article;
             CreateConversation = new Command(async () =>
@@ -36,7 +37,8 @@ namespace Listings.ViewModels
                         ReceiverId = article.User.Id,
                         SenderId =  userId.Value
                     };
-                    await ConversationService.CreateConversation(createConversationModel);
+                    var createdConversation = await ConversationService.CreateConversation(createConversationModel);
+                    await navigation.PushAsync(new ConversationDetail(createdConversation.Id));
                 }
             });
         }

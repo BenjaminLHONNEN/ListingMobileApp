@@ -42,7 +42,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="SignInButton" Text="Connexion" IsVisible="{Binding IsLogged}"></Button>
-        <Label IsVisible="{Binding IsLogged, Converter={StaticResource InvertBooleanConverter}}" Text="{Binding UserConnection.Email}"></Label>
+        <Button x:Name="SignInButton" Text="Connexion" IsVisible="{Binding IsLogged, Converter={StaticResource InvertBooleanConverter}}"></Button>
+        <Label IsVisible="{Binding IsLogged}" Text="{Binding UserConnection.Email}"></Label>
     </StackLayout>
 </ContentPage>

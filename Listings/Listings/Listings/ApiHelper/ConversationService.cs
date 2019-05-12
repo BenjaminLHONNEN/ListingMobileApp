@@ -19,10 +19,12 @@ namespace Listings.ApiHelper
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthService.Instance.GetToken());
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var response = await httpClient.GetAsync($"{ApiConstant.ApiUrl}/conversations");
+                    string json = await response.Content.ReadAsStringAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return JsonConvert.DeserializeObject<List<Conversation>>(await response.Content.ReadAsStringAsync());
+                        return JsonConvert.DeserializeObject<List<Conversation>>(json);
                     }
                     return new List<Conversation>();
                 }
@@ -34,7 +36,31 @@ namespace Listings.ApiHelper
             }
         }
 
-        public static async Task<bool> CreateConversation(CreateConversation createConversation)
+        public static async Task<List<ConversationMessage>> GetConversation(long conversationId)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthService.Instance.GetToken());
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = await httpClient.GetAsync($"{ApiConstant.ApiUrl}/conversations/{conversationId}/messages");
+                    string json = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<List<ConversationMessage>>(json);
+                    }
+                    return new List<ConversationMessage>();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static async Task<ConversationCreated> CreateConversation(CreateConversation createConversation)
         {
             try
             {
@@ -44,12 +70,12 @@ namespace Listings.ApiHelper
                     string json = JsonConvert.SerializeObject(createConversation);
                     var response = await httpClient.PostAsync($"{ApiConstant.ApiUrl}/conversations", new StringContent(json, Encoding.UTF8, "application/json"));
                     var responseText = await response.Content.ReadAsStringAsync();
+
                     if (response.IsSuccessStatusCode)
                     {
-                        return true;
+                        return JsonConvert.DeserializeObject<ConversationCreated>(responseText);
                     }
-
-                    return false;
+                    return null;
                 }
             }
             catch (Exception e)
