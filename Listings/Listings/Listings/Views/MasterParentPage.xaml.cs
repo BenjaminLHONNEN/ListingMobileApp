@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Listings.Auth;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,7 +17,7 @@ namespace Listings.Views
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
             MasterPage.SignInButtonObject.Clicked += (sender, args) => {
-                Detail = new NavigationPage(new Auth());
+                Detail.Navigation.PushAsync(new Auth());
                 IsPresented = false;
 
                 MasterPage.ListView.SelectedItem = null;

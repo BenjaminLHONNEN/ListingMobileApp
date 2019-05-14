@@ -27,12 +27,15 @@ namespace Listings.Views
         class MasterMasterMasterViewModel : INotifyPropertyChanged
         {
             private bool _islogged;
+            private UserConnection _userConnection;
+
             public ObservableCollection<MasterMenuItem> MenuItems { get; set; }
             public bool IsLogged => _islogged;
-            public UserConnection UserConnection => AuthService.Instance.UserConnection;
+            public UserConnection UserConnection => _userConnection;
 
             public MasterMasterMasterViewModel()
             {
+                _userConnection = AuthService.Instance.UserConnection;
                 MenuItems = new ObservableCollection<MasterMenuItem>(new[]
                 {
                     new MasterMenuItem {Id = 0, Title = "Liste d'articles", TargetType = typeof(ArticlesList)},
@@ -49,6 +52,26 @@ namespace Listings.Views
                             {Id = 1, Title = "Créer un article", TargetType = typeof(CreateArticleWindow)});
                     OnPropertyChanged(nameof(MenuItems));
                 }
+
+                AuthService.Instance.UserLoggedEvent += (token, connection, args) =>
+                {
+                    _userConnection = AuthService.Instance.UserConnection;
+                    _islogged = AuthService.Instance.IsLogged();
+                    if (_islogged)
+                    {
+                        MenuItems.Add(
+                            new MasterMenuItem
+                                { Id = 3, Title = "Mes conversations", TargetType = typeof(ConversationList) });
+                        MenuItems.Add(
+                            new MasterMenuItem
+                                { Id = 1, Title = "Créer un article", TargetType = typeof(CreateArticleWindow) });
+                        OnPropertyChanged(nameof(MenuItems));
+                    }
+
+                    OnPropertyChanged(nameof(MenuItems));
+                    OnPropertyChanged(nameof(IsLogged));
+                    OnPropertyChanged(nameof(UserConnection));
+                };
             }
 
             #region INotifyPropertyChanged Implementation

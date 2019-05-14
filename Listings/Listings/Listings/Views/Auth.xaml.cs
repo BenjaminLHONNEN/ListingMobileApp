@@ -10,7 +10,7 @@ namespace Listings.Views
         public Auth()
         {
             InitializeComponent();
-            BindingContext = new AuthViewModel();
+            BindingContext = new AuthViewModel(Navigation);
         }
     }
 }

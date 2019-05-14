@@ -20,6 +20,9 @@ namespace Listings.Auth
         private UserConnection _userConnection;
         public UserConnection UserConnection => _userConnection;
 
+        public event UserLoggedHandler UserLoggedEvent;
+        public delegate void UserLoggedHandler(UserToken token, UserConnection connection, EventArgs e);
+
         public Int64? UserId
         {
             get
@@ -66,7 +69,7 @@ namespace Listings.Auth
             }
 
             if (Application.Current.Properties.ContainsKey("userConnection") &&
-                Application.Current.Properties["userToken"] != null)
+                Application.Current.Properties["userConnection"] != null)
             {
                 _userConnection =
                     JsonConvert.DeserializeObject<UserConnection>(Application.Current.Properties["userConnection"]
@@ -104,6 +107,7 @@ namespace Listings.Auth
                 _userConnection = user;
                 await SaveUser();
                 _isLogged = true;
+                if (UserLoggedEvent != null) UserLoggedEvent(_userToken, _userConnection, null);
                 OnPropertyChanged(nameof(IsLogged));
                 return true;
             }

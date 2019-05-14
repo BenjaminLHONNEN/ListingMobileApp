@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Listings.ApiHelper;
 using Listings.Auth;
 using Listings.Models;
+using Listings.Views;
 using Xamarin.Forms;
 
 namespace Listings.ViewModels
@@ -25,9 +26,8 @@ namespace Listings.ViewModels
 
         public ICommand LogUserCommand { get; set; }
 
-        public AuthViewModel()
+        public AuthViewModel(INavigation navigation)
         {
-
 #if DEBUG
             UserConnection = new UserConnection()
             {
@@ -40,6 +40,7 @@ namespace Listings.ViewModels
                 if (UserConnection.IsValid())
                 {
                     await AuthService.Instance.LogUser(UserConnection);
+                    await navigation.PopToRootAsync(true);
                 }
             });
         }
